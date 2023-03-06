@@ -1,0 +1,13 @@
+    form = studendDataForm()
+    if request.method=='POST':
+        form =studendDataForm(request.POST)
+        if form.is_valid():
+            data = form.save(commit=False)
+            email = request.user
+
+            data.user = email
+            data.save()
+            return HttpResponse("Student data saved")
+        else:
+            return HttpResponse("Invalid Data")
+    return  render(request,'studentForm.html',{'form':form})
